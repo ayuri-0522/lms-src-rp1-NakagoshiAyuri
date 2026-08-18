@@ -335,6 +335,10 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
+	/**
+	 * 過去日勤怠が未入力の場合ダイアログ表示する
+	 * @return エラーメッセージ
+	 */
 	public boolean notEnterCheck() throws ParseException {
 		//今日の日付を取得する
 		Date date = new Date();
@@ -344,7 +348,7 @@ public class StudentAttendanceService {
 		tStudentAttendance.setLmsUserId(loginUserDto.getLmsUserId());
 		tStudentAttendance.setDeleteFlg(Constants.DB_FLG_FALSE);
 		tStudentAttendance.setTrainingDate(date);
-
+		//受講生が0以外の場合trueを返す
 		Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(tStudentAttendance);
 		if (notEnterCount > 0) {
 			return true;
@@ -354,4 +358,23 @@ public class StudentAttendanceService {
 
 	}
 
-}
+	/**
+	 * 勤怠直接変更
+	 *
+	 * @return 更新確認POUPの表示
+	 */
+	public void formatConversion(AttendanceForm attendanceForm) {
+		//出退勤をhhmm形式に変換する
+		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
+
+				
+			}
+			
+			
+			
+			}
+
+		
+	}
+
+
