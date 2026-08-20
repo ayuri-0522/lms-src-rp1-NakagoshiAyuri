@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -221,6 +220,8 @@ public class StudentAttendanceService {
 		attendanceForm.setUserName(loginUserDto.getUserName());
 		attendanceForm.setLeaveFlg(loginUserDto.getLeaveFlg());
 		attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
+		attendanceForm.setHourMap(attendanceUtil.getHourMap());
+		attendanceForm.setMinuteMap(attendanceUtil.getMinuteMap());
 
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
@@ -245,6 +246,17 @@ public class StudentAttendanceService {
 				dailyAttendanceForm.setBlankTimeValue(String.valueOf(
 						attendanceUtil.calcBlankTime(attendanceManagementDto.getBlankTime())));
 			}
+			//(追記)出退勤時間を抜きだす
+			dailyAttendanceForm
+					.setTrainingStartTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
+			dailyAttendanceForm
+			.setTrainingStartTimeMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+			
+			dailyAttendanceForm
+			.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+			dailyAttendanceForm
+			.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+			
 			dailyAttendanceForm.setStatus(String.valueOf(attendanceManagementDto.getStatus()));
 			dailyAttendanceForm.setNote(attendanceManagementDto.getNote());
 			dailyAttendanceForm.setSectionName(attendanceManagementDto.getSectionName());
@@ -254,24 +266,6 @@ public class StudentAttendanceService {
 			dailyAttendanceForm.setStatusDispName(attendanceManagementDto.getStatusDispName());
 
 			attendanceForm.getAttendanceList().add(dailyAttendanceForm);
-		}
-
-		//task26出退勤時間の入出力方法の変更
-
-		//時間マップ
-		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<Integer, String>();
-		hourMap.put(null, "");
-
-		for (int i = 0; i < 12; i++) {
-			hourMap.put(i, String.format("%02d", i));
-		}
-
-		//分マップ
-		LinkedHashMap<Integer, String> minuteMap = new LinkedHashMap<Integer, String>();
-		minuteMap.put(null, "");
-
-		for (int i = 0; i < 60; i++) {
-			minuteMap.put(i, String.format("%02d", i));
 		}
 
 		return attendanceForm;
@@ -386,25 +380,24 @@ public class StudentAttendanceService {
 	public void formatConversion(AttendanceForm attendanceForm) {
 		//出退勤をhhmm形式に変換する
 		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
-			String trainingStartTimeHour = dailyAttendanceForm.getTrainingStartTimeHour();
-			String trainingStartTimeMinute = dailyAttendanceForm.getTrainingStartTimeMinute();
-
-			String trainingEndTimeHour = dailyAttendanceForm.getTrainingEndTimeHour();
-			String trainingEndTimeMinute = dailyAttendanceForm.getTrainingEndTimeMinute();
+			Integer trainingStartTimeHour = dailyAttendanceForm.getTrainingStartTimeHour();
+			Integer trainingStartTimeMinute = dailyAttendanceForm.getTrainingStartTimeMinute();
+			Integer trainingEndTimeHour = dailyAttendanceForm.getTrainingEndTimeHour();
+			Integer trainingEndTimeMinute = dailyAttendanceForm.getTrainingEndTimeMinute();
 
 			if (trainingStartTimeHour != null && trainingStartTimeMinute != null) {
 				String trainingStartTime = String.format(
 						"%02d:%02d",
-						Integer.parseInt(trainingStartTimeHour),
-						Integer.parseInt(trainingStartTimeMinute));
+						trainingStartTimeHour,
+						trainingStartTimeMinute);
 				dailyAttendanceForm.setTrainingStartTime(trainingStartTime);
 
 			}
 			if (trainingEndTimeHour != null && trainingEndTimeMinute != null) {
 				String trainingEndTime = String.format(
 						"%02d:%02d",
-						Integer.parseInt(trainingEndTimeHour),
-						Integer.parseInt(trainingEndTimeMinute));
+						trainingEndTimeHour,
+						trainingEndTimeMinute);
 				dailyAttendanceForm.setTrainingEndTime(trainingEndTime);
 
 			}
@@ -412,6 +405,5 @@ public class StudentAttendanceService {
 		}
 
 	}
-	
 
 }

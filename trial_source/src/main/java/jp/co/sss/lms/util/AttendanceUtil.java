@@ -147,4 +147,67 @@ public class AttendanceUtil {
 		return false;
 	}
 
+	/**
+	 * 時間マップ
+	 * 
+	 * @return 時間(時)
+	 */
+
+	public LinkedHashMap<Integer, String> getHourMap() {
+		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<Integer, String>();
+		hourMap.put(null, "");
+		for (int i = 0; i < 12; i++) {
+			hourMap.put(i, String.format("%02d", i));
+		}
+		return hourMap;
+	}
+
+	/**
+	 * 分マップ
+	 * 
+	 * @return 時間(分)
+	 * 
+	 */
+	public LinkedHashMap<Integer, String> getMinuteMap() {
+		LinkedHashMap<Integer, String> minuteMap = new LinkedHashMap<Integer, String>();
+		minuteMap.put(null, "");
+		for (int i = 0; i < 60; i++) {
+			minuteMap.put(i, String.format("%02d", i));
+		}
+		return minuteMap;
+	}
+	
+	/**
+	 * 出退勤時間(時間)
+	 * 
+	 * @param trainingStartTime 開始時刻
+	 * @param trainingEndTime   終了時刻
+	 * @return 出退勤時間(時間)
+	 * 
+	 */
+	
+	public Integer getHour(String timeString) {
+		if(timeString == null || timeString.isEmpty()) {
+			return null;
+		}
+		return Integer.parseInt(timeString.substring(0,2));
+	}
+	
+
+	/**
+	 * 出退勤時間(時間)
+	 * 
+	 * @param trainingStartTime 開始時刻
+	 * @param trainingEndTime   終了時刻
+	 * @return 出退勤時間(分)
+	 * 
+	 */
+	
+	public Integer getMinute(String timeString) {
+		if(timeString == null || timeString.isEmpty()) {
+			return null;
+		}
+		return Integer.parseInt(timeString.substring(3,5));
+	}
+
 }
