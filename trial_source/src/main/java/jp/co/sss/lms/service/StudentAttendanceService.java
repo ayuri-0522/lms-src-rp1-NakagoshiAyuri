@@ -250,13 +250,14 @@ public class StudentAttendanceService {
 			dailyAttendanceForm
 					.setTrainingStartTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm
-			.setTrainingStartTimeMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
-			
+					.setTrainingStartTimeMinute(
+							attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+
 			dailyAttendanceForm
-			.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+					.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
 			dailyAttendanceForm
-			.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
-			
+					.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+
 			dailyAttendanceForm.setStatus(String.valueOf(attendanceManagementDto.getStatus()));
 			dailyAttendanceForm.setNote(attendanceManagementDto.getNote());
 			dailyAttendanceForm.setSectionName(attendanceManagementDto.getSectionName());
@@ -280,6 +281,7 @@ public class StudentAttendanceService {
 	 * @throws ParseException
 	 */
 	public String update(AttendanceForm attendanceForm) throws ParseException {
+		formatConversion(attendanceForm);
 
 		Integer lmsUserId = loginUserUtil.isStudent() ? loginUserDto.getLmsUserId()
 				: attendanceForm.getLmsUserId();
@@ -379,6 +381,7 @@ public class StudentAttendanceService {
 	 */
 	public void formatConversion(AttendanceForm attendanceForm) {
 		//出退勤をhhmm形式に変換する
+
 		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
 			Integer trainingStartTimeHour = dailyAttendanceForm.getTrainingStartTimeHour();
 			Integer trainingStartTimeMinute = dailyAttendanceForm.getTrainingStartTimeMinute();
