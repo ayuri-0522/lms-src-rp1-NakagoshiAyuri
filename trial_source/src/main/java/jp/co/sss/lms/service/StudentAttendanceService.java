@@ -27,7 +27,7 @@ import jp.co.sss.lms.util.TrainingTime;
 /**
  * 勤怠情報（受講生入力）サービス
  * 
- * @author 東京ITスクール
+ * @author nakagoshi.ayuri - Task.25
  */
 @Service
 public class StudentAttendanceService {
@@ -353,17 +353,27 @@ public class StudentAttendanceService {
 
 	/**
 	 * 過去日勤怠が未入力の場合ダイアログ表示する
-	 * @return エラーメッセージ
+	 * @author nakagoshi.ayuri -task.25
+	 * @return 過去日勤怠の未入力が1件以上存在する場合true、存在しない場合false
 	 */
+
+	//中越愛百合 -Task.25
 	public boolean notEnterCheck() throws ParseException {
-		//今日の日付を取得する
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		//現在の日時を受け取る
 		Date date = new Date();
-		//未入力件数を取得する
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		//上で取得した日時を"yyyy/MM/dd"の形に変更する
+		String TrainingDate = sdf.format(date);
+		//"yyyy/MM/dd"形を変えたものをDateがたに戻す。
+		Date sdfDate = sdf.parse(TrainingDate);
+
+		//受講生の情報を取得する
 		TStudentAttendance tStudentAttendance = new TStudentAttendance();
 		tStudentAttendance.setLmsUserId(loginUserDto.getLmsUserId());
 		tStudentAttendance.setDeleteFlg(Constants.DB_FLG_FALSE);
-		tStudentAttendance.setTrainingDate(date);
+		tStudentAttendance.setTrainingDate(sdfDate);
+		
+
 		//受講生が0以外の場合trueを返す
 		Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(tStudentAttendance);
 		if (notEnterCount > 0) {

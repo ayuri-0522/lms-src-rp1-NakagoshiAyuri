@@ -12,7 +12,7 @@ import jp.co.sss.lms.entity.TStudentAttendance;
 /**
  * 勤怠情報（受講生入力）テーブルマッパー
  * 
- * @author 東京ITスクール
+ * @author nakagoshi.ayuri -task25
  */
 @Mapper
 public interface TStudentAttendanceMapper {
@@ -68,8 +68,9 @@ public interface TStudentAttendanceMapper {
 	/**
 	 * 勤怠情報（受講生入力）未入力件数取得
 	 * 
+	 * @author nakagoshi.ayuri -task25
 	 * @param tStudentAttendance
-	 * @return 更新結果
+	 * @return 受講生の情報
 	 */
 	
 	Integer notEnterCount(TStudentAttendance tStudentAttendance);

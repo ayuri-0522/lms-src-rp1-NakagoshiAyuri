@@ -19,7 +19,7 @@ import jp.co.sss.lms.util.Constants;
 /**
  * 勤怠管理コントローラ
  * 
- * @author 東京ITスクール
+ * @author nakagoshi.ayuri -task.25
  */
 @Controller
 @RequestMapping("/attendance")
@@ -33,21 +33,23 @@ public class AttendanceController {
 	/**
 	 * 勤怠管理画面 初期表示
 	 * 
+	 * @author nakagoshi.ayuri -task.25
 	 * @param lmsUserId
 	 * @param courseId
 	 * @param model
 	 * @return 勤怠管理画面
 	 * @throws ParseException
+	 * 
 	 */
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String index(Model model) throws ParseException {
 
-		
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
+		//中越愛百合 - Task.25
 		//現在より過去に未入力がないかをチェックする
 		boolean notEnterFlg = studentAttendanceService.notEnterCheck();
 		model.addAttribute("notEnterFlg", notEnterFlg);
@@ -57,6 +59,7 @@ public class AttendanceController {
 
 	/**
 	 * 勤怠管理画面 『出勤』ボタン押下
+	 * 
 	 * 
 	 * @param model
 	 * @return 勤怠管理画面
@@ -117,13 +120,11 @@ public class AttendanceController {
 		// 勤怠管理リストの取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
-		
-		
+
 		// 勤怠フォームの生成
 		AttendanceForm attendanceForm = studentAttendanceService
 				.setAttendanceForm(attendanceManagementDtoList);
-		
-		
+
 		model.addAttribute("attendanceForm", attendanceForm);
 		return "attendance/update";
 	}

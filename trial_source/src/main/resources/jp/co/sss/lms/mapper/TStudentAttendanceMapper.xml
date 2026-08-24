@@ -94,6 +94,7 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 
+<!-- 中越愛百合　- Task.25 -->
 	<select id="notEnterCount"
 		parameterType="jp.co.sss.lms.entity.TStudentAttendance"
 		resultType="java.lang.Integer">
