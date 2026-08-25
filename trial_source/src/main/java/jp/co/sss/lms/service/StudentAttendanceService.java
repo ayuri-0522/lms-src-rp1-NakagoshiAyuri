@@ -357,7 +357,7 @@ public class StudentAttendanceService {
 	 * @return 過去日勤怠の未入力が1件以上存在する場合true、存在しない場合false
 	 */
 
-	//中越愛百合 -Task.25
+	// fix(2026/08/25) 中越愛百合 -Task.25 
 	public boolean notEnterCheck() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		//現在の日時を受け取る
@@ -367,15 +367,14 @@ public class StudentAttendanceService {
 		//"yyyy/MM/dd"形を変えたものをDateがたに戻す。
 		Date sdfDate = sdf.parse(TrainingDate);
 
-		//受講生の情報を取得する
-		TStudentAttendance tStudentAttendance = new TStudentAttendance();
-		tStudentAttendance.setLmsUserId(loginUserDto.getLmsUserId());
-		tStudentAttendance.setDeleteFlg(Constants.DB_FLG_FALSE);
-		tStudentAttendance.setTrainingDate(sdfDate);
-		
+		Integer lmsUserId = loginUserDto.getLmsUserId();
+		Short deleteFlg = 0;
 
-		//受講生が0以外の場合trueを返す
-		Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(tStudentAttendance);
+		Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(
+				lmsUserId,
+				deleteFlg,
+				sdfDate);
+
 		if (notEnterCount > 0) {
 			return true;
 		} else {

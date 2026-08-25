@@ -94,10 +94,8 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 
-<!-- 中越愛百合　- Task.25 -->
-	<select id="notEnterCount"
-		parameterType="jp.co.sss.lms.entity.TStudentAttendance"
-		resultType="java.lang.Integer">
+<!-- fix(2026/08/25) 中越愛百合　- Task.25 -->
+	<select id="notEnterCount" resultType="java.lang.Integer">
      SELECT COUNT (*)
      FROM
      t_student_attendance tsa
@@ -110,12 +108,12 @@
      AND
      tsa.status != 1
      AND(
-     tsa.training_start_time = tsa.training_end_time 
+     tsa.training_start_time = ''
+     OR
+     tsa.training_end_time = ''
      OR
      tsa.training_start_time IS NULL
      OR
      tsa.training_end_time IS NULL)
 	</select>
-	
-
 </mapper>

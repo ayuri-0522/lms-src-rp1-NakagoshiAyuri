@@ -64,7 +64,7 @@ public interface TStudentAttendanceMapper {
 	 * @return 更新結果
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
-	
+
 	/**
 	 * 勤怠情報（受講生入力）未入力件数取得
 	 * 
@@ -72,7 +72,11 @@ public interface TStudentAttendanceMapper {
 	 * @param tStudentAttendance
 	 * @return 受講生の情報
 	 */
-	
-	Integer notEnterCount(TStudentAttendance tStudentAttendance);
+
+	//fix 2026/08/25 -中越
+	Integer notEnterCount(
+			@Param("lmsUserId") Integer lmsUserId,
+			@Param("deleteFlg") Short deleteFlg,
+			@Param("trainingDate") Date trainingDate);
 
 }
