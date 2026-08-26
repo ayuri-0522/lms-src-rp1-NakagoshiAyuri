@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>勤怠情報変更｜LMS</title>
 </head>
@@ -135,32 +135,47 @@
 						<input type="submit" value="戻る" name="indexCompany" class="btn btn-default" />
 					</th:block>
 					<input type="submit" value="更新" name="complete" class="btn btn-info" />
+
 				</div>
 
 			</form>
 		</div>
 	</div>
 
+	<!--Task.27-->
+	<script type="text/javascript" th:inline="javascript">
+		function () {
+			if (confirm("更新します。よろしいですか？")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+
+	<!-- task27 end-->
+
 	<!-- Task.28 -->
-<script type="text/javascript" th:inline="javascript">
-	$(function () {
+	<script type="text/javascript" th:inline="javascript">
+		$(function () {
 
-		$(".default-button").click(function () {
+			$(".default-button").click(function () {
 
-			const row = $(this).closest("tr");
+				const row = $(this).closest("tr");
 
-			// 出勤 09:00
-			row.find(".start-hour").val("9");
-			row.find(".start-minute").val("0");
+				// 出勤 09:00
+				row.find(".start-hour").val("9");
+				row.find(".start-minute").val("0");
 
-			// 退勤 18:00
-			row.find(".end-hour").val("18");
-			row.find(".end-minute").val("0");
+				// 退勤 18:00
+				row.find(".end-hour").val("18");
+				row.find(".end-minute").val("0");
+
+			});
 
 		});
-
-	});
-</script>
+	</script>
+	<!--task28 end -->
 
 </body>
 

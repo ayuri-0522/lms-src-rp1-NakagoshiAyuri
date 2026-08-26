@@ -176,7 +176,7 @@ public class AttendanceUtil {
 		}
 		return minuteMap;
 	}
-	
+
 	/**
 	 * 出退勤時間(時間)
 	 * 
@@ -185,14 +185,13 @@ public class AttendanceUtil {
 	 * @return 出退勤時間(時間)
 	 * 
 	 */
-	
+
 	public Integer getHour(String timeString) {
-		if(timeString == null || timeString.isEmpty()) {
+		if (timeString == null || timeString.isEmpty()) {
 			return null;
 		}
-		return Integer.parseInt(timeString.substring(0,2));
+		return Integer.parseInt(timeString.substring(0, 2));
 	}
-	
 
 	/**
 	 * 出退勤時間(時間)
@@ -202,12 +201,36 @@ public class AttendanceUtil {
 	 * @return 出退勤時間(分)
 	 * 
 	 */
-	
+
 	public Integer getMinute(String timeString) {
-		if(timeString == null || timeString.isEmpty()) {
+		if (timeString == null || timeString.isEmpty()) {
 			return null;
 		}
-		return Integer.parseInt(timeString.substring(3,5));
+		return Integer.parseInt(timeString.substring(3, 5));
 	}
 
+	/**
+	 * 勤務時間(分)
+	 * 
+	 */
+	/**
+	 * 出勤時間と退勤時間から合計勤務時間を算出
+	 *
+	 * @param startHour 出勤時
+	 * @param startMinute 出勤分
+	 * @param endHour 退勤時
+	 * @param endMinute 退勤分
+	 * @return 合計勤務時間
+	 */
+	public TrainingTime calcWorkingTime(
+			Integer startHour,
+			Integer startMinute,
+			Integer endHour,
+			Integer endMinute) {
+
+		TrainingTime startTime = new TrainingTime(startHour, startMinute);
+		TrainingTime endTime = new TrainingTime(endHour, endMinute);
+
+		return endTime.subtract(startTime);
+	}
 }
