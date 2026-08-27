@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 日次の勤怠フォーム
  * 
- * @author 東京ITスクール
+ * @author nakagoshi.ayuri -task.26
  */
 @Data
 public class DailyAttendanceForm {

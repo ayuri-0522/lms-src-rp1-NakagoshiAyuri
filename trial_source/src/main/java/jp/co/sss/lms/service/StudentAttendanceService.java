@@ -29,7 +29,7 @@ import jp.co.sss.lms.util.TrainingTime;
 /**
  * 勤怠情報（受講生入力）サービス
  * 
- * @author nakagoshi.ayuri - Task.25
+ * @author nakagoshi.ayuri 
  */
 @Service
 public class StudentAttendanceService {

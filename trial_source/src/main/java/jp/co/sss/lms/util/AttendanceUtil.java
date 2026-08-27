@@ -13,7 +13,7 @@ import jp.co.sss.lms.mapper.MSectionMapper;
 /**
  * 勤怠管理のユーティリティクラス
  * 
- * @author 東京ITスクール
+ * @author nakagoshi.ayuri
  */
 @Component
 public class AttendanceUtil {
@@ -149,7 +149,7 @@ public class AttendanceUtil {
 
 	/**
 	 * 時間マップ
-	 * 
+	 * @author nakagoshi.ayuri -task.26
 	 * @return 時間(時)
 	 */
 
@@ -164,7 +164,7 @@ public class AttendanceUtil {
 
 	/**
 	 * 分マップ
-	 * 
+	 * @author nakagoshi.ayuri -task.26
 	 * @return 時間(分)
 	 * 
 	 */
@@ -180,6 +180,7 @@ public class AttendanceUtil {
 	/**
 	 * 出退勤時間(時間)
 	 * 
+	 * @author nakagoshi.ayuri -task.26
 	 * @param trainingStartTime 開始時刻
 	 * @param trainingEndTime   終了時刻
 	 * @return 出退勤時間(時間)
@@ -196,6 +197,7 @@ public class AttendanceUtil {
 	/**
 	 * 出退勤時間(時間)
 	 * 
+	 * @author nakagoshi.ayuri -task.26
 	 * @param trainingStartTime 開始時刻
 	 * @param trainingEndTime   終了時刻
 	 * @return 出退勤時間(分)
@@ -215,7 +217,8 @@ public class AttendanceUtil {
 	 */
 	/**
 	 * 出勤時間と退勤時間から合計勤務時間を算出
-	 *
+	 * 
+	 *@author nakagoshi.ayuri -task.26
 	 * @param startHour 出勤時
 	 * @param startMinute 出勤分
 	 * @param endHour 退勤時
