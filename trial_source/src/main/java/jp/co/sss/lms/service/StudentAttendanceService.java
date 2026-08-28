@@ -441,25 +441,33 @@ public class StudentAttendanceService {
 								Constants.VALID_KEY_MAXLENGTH,
 								new String[] { "備考", "100" })));
 			}
-			
+
 			forCount++;
 
 			//出勤時間の時間または分に入力がない場合
 			if (dailyAttendanceForm.getTrainingStartTimeHour() == null
-					|| dailyAttendanceForm.getTrainingStartTimeMinute() == null) {
+					&& dailyAttendanceForm.getTrainingStartTimeMinute() == null) {
+				
+			}else if (dailyAttendanceForm.getTrainingStartTimeHour() == null
+						|| dailyAttendanceForm.getTrainingStartTimeMinute() == null) {	
+
 				result.addError(new FieldError(result.getObjectName(),
-						"trainingStartTime",
+						"attendanceList[" + forCount + "].trainingStartTime",
 						messageUtil.getMessage(
 								Constants.INPUT_INVALID,
 								new String[] { "出勤時間" })));
 
 			}
+			forCount++;
 
 			//退勤時間の時間または分に入力がない場合
 			if (dailyAttendanceForm.getTrainingEndTimeHour() == null
+					&& dailyAttendanceForm.getTrainingEndTimeMinute() == null) {
+				
+			}else if (dailyAttendanceForm.getTrainingEndTimeHour() == null
 					|| dailyAttendanceForm.getTrainingEndTimeMinute() == null) {
 				result.addError(new FieldError(result.getObjectName(),
-						"trainingEndTime",
+						"attendanceList[" + forCount + "].trainingEndTime",
 						messageUtil.getMessage(
 								Constants.INPUT_INVALID,
 								new String[] { "退勤時間" })));
@@ -469,10 +477,11 @@ public class StudentAttendanceService {
 			if (dailyAttendanceForm.getTrainingStartTime() == null &&
 					dailyAttendanceForm.getTrainingEndTime() != null) {
 				result.addError(new FieldError(result.getObjectName(),
-						"trainingStartTime",
+						"attendanceList[" + forCount + "].trainingStartTime",
 						messageUtil.getMessage(
 								Constants.INPUT_INVALID)));
 			}
+			forCount++;
 
 			//出勤時刻>退勤時刻の場合
 			if (dailyAttendanceForm.getTrainingStartTimeHour() != null
@@ -502,7 +511,8 @@ public class StudentAttendanceService {
 			if (dailyAttendanceForm.getTrainingStartTimeHour() != null
 					&& dailyAttendanceForm.getTrainingStartTimeMinute() != null
 					&& dailyAttendanceForm.getTrainingEndTimeHour() != null
-					&& dailyAttendanceForm.getTrainingEndTimeMinute() != null) {
+					&& dailyAttendanceForm.getTrainingEndTimeMinute() != null
+					&& dailyAttendanceForm.getBlankTime() != null) {
 
 				TrainingTime workingTime = attendanceUtil.calcWorkingTime(
 						dailyAttendanceForm.getTrainingStartTimeHour(),
@@ -515,7 +525,7 @@ public class StudentAttendanceService {
 				if (blankTime.compareTo(workingTime) > 0) {
 					result.addError(new FieldError(
 							result.getObjectName(),
-							"workingTime",
+							"fieldName",
 							messageUtil.getMessage(
 									Constants.VALID_KEY_ATTENDANCE_BLANKTIMEERROR)));
 				}

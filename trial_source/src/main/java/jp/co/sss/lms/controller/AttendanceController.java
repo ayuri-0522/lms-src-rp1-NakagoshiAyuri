@@ -139,19 +139,24 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/update", params = "complete", method = RequestMethod.POST)
-	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
+	public String complete(AttendanceForm attendanceForm, BindingResult result, Model model)
 			throws ParseException {
 
 		// 入力チェック
 		studentAttendanceService.updateInputCheck(attendanceForm, result);
 
 		if (result.hasErrors()) {
+			// エラーメッセージを取得
+			String errorMessage = result.getAllErrors().get(0).getDefaultMessage();
+
+			// 画面に渡す
+			model.addAttribute("updateFaild", errorMessage);
+			model.addAttribute("attendanceForm", attendanceForm);
 			return "attendance/update";
 		}
 
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
-		model.addAttribute("updatFaild", message);
 		// 一覧の再取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());

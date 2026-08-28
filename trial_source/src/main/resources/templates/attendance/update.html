@@ -12,12 +12,9 @@
 
 	<th:block th:if="${session.loginUserDto.role == '0001'}">
 		<h2>勤怠管理</h2>
+		<span class="help-inline error" th:if="${updateFaild}">*&nbsp;[[${updateFaild}]]</span>
 	</th:block>
-
-
-	<span class="help-inline error" th:if="${updateFaild}">*&nbsp;[[${updateFaild}]]</span>
-
-
+	
 
 	<th:block th:if="${session.loginUserDto.role != '0001'}">
 		<h2>勤怠管理 <small>( [[${attendanceForm.userName}]] )</small></h2>
@@ -63,7 +60,7 @@
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
 
-								<!--task28  -->
+								<!--task28 -中越 -->
 								<td class="w60">
 									<input type="button" value="定時" class="btn btn-success default-button" />
 								</td>
